@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "Liveguru Automation Testing">
+    <parameter name="url" value="https://live.techpanda.org"/>
+
+    <test name = "Run on Firefox">
+            <parameter name="browser" value="firefox"/>
+            <classes>
+                <class name="user.User_01"/>
+            </classes>
+    </test>
+
+    <!--    <test name="Run on Firefox Headless">-->
+    <!--        <parameter name="browser" value="hfirefox"/>-->
+    <!--        <classes>-->
+    <!--            <class name=""/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+
+    <!--    <test name="Run on Chrome Headless">-->
+    <!--        <parameter name="browser" value="hchrome"/>-->
+    <!--        <classes>-->
+    <!--            <class name=""/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+
+    <!--    <test name="Run on Edge Headless">-->
+    <!--        <parameter name="browser" value="hedge"/>-->
+    <!--        <classes>-->
+    <!--            <class name=""/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+</suite>
