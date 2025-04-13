@@ -469,6 +469,8 @@ public class BasePage {
         }
     }
 
+
+
     public boolean waitAllLoadingIconInvisible(WebDriver driver, String locator) {
         return waitForListElementInvisible(driver, locator);
     }
