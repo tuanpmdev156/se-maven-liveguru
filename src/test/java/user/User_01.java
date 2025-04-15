@@ -10,14 +10,20 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.HomePO;
 import pageObjects.MyAccountPO;
-import pageObjects.RegisterPO;
 import pageObjects.PageGenerator;
+import pageObjects.RegisterPO;
 
 public class User_01 extends BaseTest {
 
-    @Parameters({"browser","url"})
+    private WebDriver driver;
+    private HomePO homePage;
+    private RegisterPO registerPage;
+    private MyAccountPO myAccountPage;
+    private String firstName, lastName, emailAddress, password;
+
+    @Parameters({"browser", "url"})
     @BeforeClass
-    public void beforeClass(String browserName, String url){
+    public void beforeClass(String browserName, String url) {
         driver = getBrowserDriver(browserName, url);
         homePage = PageGenerator.getHomePage(driver);
         firstName = DataFakerHelper.getFaker().name().firstName();
@@ -32,7 +38,7 @@ public class User_01 extends BaseTest {
     }
 
     @Test
-    public void TC_01_Register(){
+    public void TC_01_Register() {
         homePage.clickToAccountMenu();
         registerPage = homePage.clickToRegisterLink();
         registerPage.enterToFirstNameTextbox(firstName);
@@ -46,18 +52,19 @@ public class User_01 extends BaseTest {
     }
 
 
+    @Test
+    public void TC_02_Verify_User_Information() {
+        myAccountPage.clickToAccountInformationLink();
+        Assert.assertEquals(myAccountPage.getUserFistName(),firstName);
+        Assert.assertEquals(myAccountPage.getUserLastName(),lastName);
+        Assert.assertEquals(myAccountPage.getUserEmailAddress(),emailAddress);
+    }
 
 
 
     @AfterClass
-    public void afterClass(){
-        closeBrowserDriver();
+    public void afterClass() {
+        //closeBrowserDriver();
     }
-
-    private WebDriver driver;
-    private HomePO homePage;
-    private RegisterPO registerPage;
-    private MyAccountPO myAccountPage;
-    private String firstName,lastName,emailAddress,password;
 
 }
