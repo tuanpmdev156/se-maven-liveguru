@@ -6,7 +6,7 @@
     </listeners>
     <parameter name="url" value="https://live.techpanda.org"/>
     <test name = "Run on Firefox">
-            <parameter name="browser" value="hfirefox"/>
+            <parameter name="browser" value="firefox"/>
             <classes>
                 <class name="common.BeforeTest"/>
                 <class name="user.User_01"/>

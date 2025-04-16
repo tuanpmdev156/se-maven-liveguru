@@ -3,7 +3,6 @@ package user;
 import common.BaseTest;
 import common.DataFakerHelper;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -48,23 +47,22 @@ public class User_01 extends BaseTest {
         registerPage.enterToConfirmPasswordTextbox(password);
         registerPage.clickToRegisterButton();
         myAccountPage = registerPage.clickContinueInAlertPopup();
-        Assert.assertTrue(myAccountPage.isSuccessMessageDisplayed());
+        verifyTrue(myAccountPage.isSuccessMessageDisplayed());
     }
 
 
     @Test
     public void TC_02_Verify_User_Information() {
         myAccountPage.clickToAccountInformationLink();
-        Assert.assertEquals(myAccountPage.getUserFistName(),firstName);
-        Assert.assertEquals(myAccountPage.getUserLastName(),lastName);
-        Assert.assertEquals(myAccountPage.getUserEmailAddress(),emailAddress);
+        verifyEquals(myAccountPage.getUserFistName(), "aaaa");
+        verifyEquals(myAccountPage.getUserLastName(), lastName);
+        verifyEquals(myAccountPage.getUserEmailAddress(), emailAddress);
     }
-
 
 
     @AfterClass
     public void afterClass() {
-        //closeBrowserDriver();
+        closeBrowserDriver();
     }
 
 }
