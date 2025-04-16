@@ -1,6 +1,6 @@
 package pageObjects;
 
-import commons.BasePage;
+import common.BasePage;
 import org.openqa.selenium.WebDriver;
 import pageUIs.HomePUI;
 

@@ -1,7 +1,7 @@
 package user;
 
-import commons.BaseTest;
-import commons.DataFakerHelper;
+import common.BaseTest;
+import common.DataFakerHelper;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;

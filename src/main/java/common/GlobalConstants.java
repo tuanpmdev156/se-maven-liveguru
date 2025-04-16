@@ -1,4 +1,4 @@
-package commons;
+package common;
 
 public class GlobalConstants {
     // SYSTEM INFO

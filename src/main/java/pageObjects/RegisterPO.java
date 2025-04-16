@@ -1,9 +1,7 @@
 package pageObjects;
 
-import commons.BasePage;
-import org.openqa.selenium.Alert;
+import common.BasePage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageUIs.RegisterPUI;
 
 public class RegisterPO extends BasePage {
