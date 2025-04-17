@@ -9,7 +9,8 @@
             <parameter name="browser" value="firefox"/>
             <classes>
                 <class name="common.BeforeTest"/>
-                <class name="user.User_01"/>
+                <class name="user.User_01_Register_And_Verify"/>
+                <class name="user.User_02_Login"/>
             </classes>
     </test>
 

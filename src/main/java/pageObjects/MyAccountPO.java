@@ -35,5 +35,8 @@ public class MyAccountPO extends BasePage {
         return getElementAttribute(driver, MyAccountPUI.EMAIL_ADDRESS_TEXT_INPUT,"value");
     }
 
-
+    public String getDashboardWelcomeText() {
+        waitForElementVisible(driver, MyAccountPUI.DASHBOARD_WELCOME_TEXT);
+        return getElementText(driver, MyAccountPUI.DASHBOARD_WELCOME_TEXT);
+    }
 }

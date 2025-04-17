@@ -21,4 +21,10 @@ public class HomePO extends BasePage {
         clickToElement(driver,HomePUI.REGISTER_LINK);
         return PageGenerator.getRegisterPage(driver);
     }
+
+    public LoginPO clickToLoginLink() {
+        waitForElementClickable(driver, HomePUI.LOGIN_LINK);
+        clickToElement(driver,HomePUI.LOGIN_LINK);
+        return PageGenerator.getLoginPage(driver);
+    }
 }

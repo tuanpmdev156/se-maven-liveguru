@@ -1,7 +1,6 @@
 package user;
 
 import common.BaseTest;
-import common.DataFakerHelper;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,41 +11,31 @@ import pageObjects.MyAccountPO;
 import pageObjects.PageGenerator;
 import pageObjects.RegisterPO;
 
-public class User_01 extends BaseTest {
+public class User_01_Register_And_Verify extends BaseTest {
 
     private WebDriver driver;
     private HomePO homePage;
     private RegisterPO registerPage;
     private MyAccountPO myAccountPage;
-    private String firstName, lastName, emailAddress, password;
 
     @Parameters({"browser", "url"})
     @BeforeClass
     public void beforeClass(String browserName, String url) {
         driver = getBrowserDriver(browserName, url);
         homePage = PageGenerator.getHomePage(driver);
-        firstName = DataFakerHelper.getFaker().name().firstName();
-        lastName = DataFakerHelper.getFaker().name().lastName();
-        emailAddress = DataFakerHelper.getFaker().internet().emailAddress();
-        password = DataFakerHelper.getFaker().internet().password();
-        System.out.println("firstName: " + firstName);
-        System.out.println("lastName: " + lastName);
-        System.out.println("emailAddress: " + emailAddress);
-        System.out.println("password: " + password);
-
     }
 
     @Test
     public void TC_01_Register() {
         homePage.clickToAccountMenu();
         registerPage = homePage.clickToRegisterLink();
-        registerPage.enterToFirstNameTextbox(firstName);
-        registerPage.enterToLastNameTextbox(lastName);
-        registerPage.enterToEmailAddressTextbox(emailAddress);
-        registerPage.enterToPasswordTextbox(password);
-        registerPage.enterToConfirmPasswordTextbox(password);
+        registerPage.enterToFirstNameTextbox(User_Data.firstName);
+        registerPage.enterToLastNameTextbox(User_Data.lastName);
+        registerPage.enterToEmailAddressTextbox(User_Data.emailAddress);
+        registerPage.enterToPasswordTextbox(User_Data.password);
+        registerPage.enterToConfirmPasswordTextbox(User_Data.password);
         registerPage.clickToRegisterButton();
-        myAccountPage = registerPage.clickContinueInAlertPopup();
+        myAccountPage = registerPage.confirmAlertPopup();
         verifyTrue(myAccountPage.isSuccessMessageDisplayed());
     }
 
@@ -54,9 +43,9 @@ public class User_01 extends BaseTest {
     @Test
     public void TC_02_Verify_User_Information() {
         myAccountPage.clickToAccountInformationLink();
-        verifyEquals(myAccountPage.getUserFistName(), "aaaa");
-        verifyEquals(myAccountPage.getUserLastName(), lastName);
-        verifyEquals(myAccountPage.getUserEmailAddress(), emailAddress);
+        verifyEquals(myAccountPage.getUserFistName(), User_Data.firstName);
+        verifyEquals(myAccountPage.getUserLastName(), User_Data.lastName);
+        verifyEquals(myAccountPage.getUserEmailAddress(), User_Data.emailAddress);
     }
 
 

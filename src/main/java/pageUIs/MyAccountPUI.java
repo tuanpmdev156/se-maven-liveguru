@@ -6,4 +6,5 @@ public class MyAccountPUI {
     public static final String FIRST_NAME_TEXT_INPUT = "id=firstname";
     public static final String LAST_NAME_TEXT_INPUT = "id=lastname";
     public static final String EMAIL_ADDRESS_TEXT_INPUT = "id=email";
+    public static final String DASHBOARD_WELCOME_TEXT = "xpath=//div[@class='welcome-msg']//strong";
 }

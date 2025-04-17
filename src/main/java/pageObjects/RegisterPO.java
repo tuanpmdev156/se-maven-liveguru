@@ -40,7 +40,7 @@ public class RegisterPO extends BasePage {
         clickToElement(driver,RegisterPUI.REGISTER_BUTTON);
     }
 
-    public MyAccountPO clickContinueInAlertPopup() {
+    public MyAccountPO confirmAlertPopup() {
         acceptAlert(driver);
         return PageGenerator.getMyAccountPage(driver);
     }
