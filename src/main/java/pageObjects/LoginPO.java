@@ -16,7 +16,7 @@ public class LoginPO extends BasePage {
         sendKeyToElement(driver,LoginPUI.EMAIL_ADDRESS_TEXTBOX,emailAddress);
     }
 
-    public void enterToLastNameTextbox(String password) {
+    public void enterToPasswordTextbox(String password) {
         waitForElementVisible(driver, LoginPUI.PASSWORD_TEXTBOX);
         sendKeyToElement(driver,LoginPUI.PASSWORD_TEXTBOX,password);
     }

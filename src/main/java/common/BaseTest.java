@@ -27,6 +27,9 @@ public class BaseTest extends DataFakerHelper {
     public BaseTest() {
         log = LogManager.getLogger(getClass());
     }
+    public void writeLog(String logMessage) {
+        log.info(logMessage);
+    }
 
     public WebDriver getDriver() {
         return driver;

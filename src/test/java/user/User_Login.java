@@ -11,7 +11,7 @@ import pageObjects.LoginPO;
 import pageObjects.MyAccountPO;
 import pageObjects.PageGenerator;
 
-public class User_02_Login extends BaseTest {
+public class User_Login extends BaseTest {
 
     private WebDriver driver;
     private HomePO homePage;
@@ -21,6 +21,7 @@ public class User_02_Login extends BaseTest {
     @Parameters({"browser", "url"})
     @BeforeClass
     public void beforeClass(String browserName, String url) {
+        writeLog("User_Login - Step 01: Open URL");
         driver = getBrowserDriver(browserName, url);
         homePage = PageGenerator.getHomePage(driver);
 
@@ -28,12 +29,17 @@ public class User_02_Login extends BaseTest {
 
     @Test
     public void TC_03_Login() {
+        writeLog("User_Login - Step 02: Click on ACCOUNT menu");
         homePage.clickToAccountMenu();
+        writeLog("User_Login - Step 03: Click on Login link");
         loginPage = homePage.clickToLoginLink();
+        writeLog("User_Login - Step 04: Insert login email: " + User_Data.emailAddress);
         loginPage.enterToFirstNameTextbox(User_Data.emailAddress);
-        loginPage.enterToLastNameTextbox(User_Data.password);
+        writeLog("User_Login - Step 05: Insert login password: " + User_Data.password);
+        loginPage.enterToPasswordTextbox(User_Data.password);
         loginPage.clickToLoginButton();
         myAccountPage = loginPage.confirmAlertPopup();
+        writeLog("User_Login - Step 06: Verify login successfully");
         verifyEquals(myAccountPage.getDashboardWelcomeText(),"Hello, "+User_Data.firstName+" "+User_Data.lastName+"!");
     }
 
