@@ -2,7 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name = "Liveguru Automation Testing">
     <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
         <listener class-name="utilities.MethodListener"/>
+        <listener class-name="utilities.ReportNGImageListener"/>
     </listeners>
     <parameter name="url" value="https://live.techpanda.org"/>
     <test name = "Run on Firefox">

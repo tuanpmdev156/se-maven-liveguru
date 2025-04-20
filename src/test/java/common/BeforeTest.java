@@ -6,15 +6,22 @@ import java.io.File;
 
 public class BeforeTest {
     @BeforeSuite
-    public void cleanAllureResults() {
+    public void cleanAllureResultsFolder() {
         File folder = new File("allure-results");
         if (folder.exists() && folder.isDirectory()) {
             for (File file : folder.listFiles()) {
-                if (file.getName().endsWith(".json")) {
                     file.delete();
-                }
             }
-            System.out.println("Old Allure JSON files deleted.");
         }
     }
-}
+    @BeforeSuite
+    public void cleanLogsFolder() {
+        File folder = new File("logs");
+        if (folder.exists() && folder.isDirectory()) {
+            for (File file : folder.listFiles()) {
+                file.delete();
+            }
+            }
+        }
+    }
+
