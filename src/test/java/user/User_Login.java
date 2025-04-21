@@ -1,6 +1,8 @@
 package user;
 
 import common.BaseTest;
+import common.CookiesArchive;
+import common.User_Data_Test;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -33,14 +35,16 @@ public class User_Login extends BaseTest {
         homePage.clickToAccountMenu();
         writeLog("User_Login - Step 03: Click on Login link");
         loginPage = homePage.clickToLoginLink();
-        writeLog("User_Login - Step 04: Insert login email: " + User_Data.emailAddress);
-        loginPage.enterToFirstNameTextbox(User_Data.emailAddress);
-        writeLog("User_Login - Step 05: Insert login password: " + User_Data.password);
-        loginPage.enterToPasswordTextbox(User_Data.password);
+        writeLog("User_Login - Step 04: Insert login email: " + User_Data_Test.emailAddress);
+        loginPage.enterToFirstNameTextbox(User_Data_Test.emailAddress);
+        writeLog("User_Login - Step 05: Insert login password: " + User_Data_Test.password);
+        loginPage.enterToPasswordTextbox(User_Data_Test.password);
         loginPage.clickToLoginButton();
         myAccountPage = loginPage.confirmAlertPopup();
         writeLog("User_Login - Step 06: Verify login successfully");
-        verifyEquals(myAccountPage.getDashboardWelcomeText(),"Hello, "+User_Data.firstName+" "+User_Data.lastName+"!");
+        verifyEquals(myAccountPage.getDashboardWelcomeText(),"Hello, "+ User_Data_Test.firstName+" "+ User_Data_Test.lastName+"!");
+        writeLog("User_Login - Step 07: Get cookies after login");
+        CookiesArchive.cookie = driver.manage().getCookies();
     }
 
 

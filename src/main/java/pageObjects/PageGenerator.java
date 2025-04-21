@@ -17,4 +17,11 @@ public class PageGenerator {
     public static LoginPO getLoginPage(WebDriver driver) {
         return new LoginPO(driver);
     }
+
+    public static MobilePO getMobilePage(WebDriver driver) {
+        return new MobilePO(driver);
+    }
+    public static MobileDetailPO getMobileDetailPage(WebDriver driver) {
+        return new MobileDetailPO(driver);
+    }
 }

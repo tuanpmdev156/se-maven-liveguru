@@ -2,6 +2,7 @@ package common;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -152,8 +153,12 @@ public class BaseTest extends DataFakerHelper {
 
     @BeforeSuite
     public void deleteFileInReport() {
-        // Remove all file in ReportNG screenshot (image)
+        // Remove all files in ReportNG screenshot (image)
         deleteAllFileInFolder("ReportNGScreenShots");
+        // Remove all files in allure-results folder
+        deleteAllFileInFolder("allure-results");
+        // Remove all files in logs folder
+        deleteAllFileInFolder("logs");
     }
 
 
@@ -212,6 +217,14 @@ public class BaseTest extends DataFakerHelper {
             log.info("---------------------- Failed -----------------------");
         }
         return status;
+    }
+
+    public void setCookieAndReloadPage() {
+        for (Cookie ck : CookiesArchive.cookie) {
+            driver.manage().addCookie(ck);
+        }
+
+        driver.navigate().refresh();
     }
 }
 
