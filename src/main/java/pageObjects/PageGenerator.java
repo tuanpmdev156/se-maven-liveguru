@@ -24,4 +24,8 @@ public class PageGenerator {
     public static MobileDetailPO getMobileDetailPage(WebDriver driver) {
         return new MobileDetailPO(driver);
     }
+    public static CheckoutPO getCheckoutPage(WebDriver driver) {
+        return new CheckoutPO(driver);
+    }
+
 }

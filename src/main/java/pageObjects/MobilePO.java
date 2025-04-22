@@ -2,6 +2,7 @@ package pageObjects;
 
 import common.BasePage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.devtools.v85.page.Page;
 import pageUIs.MobileDetailPUI;
 import pageUIs.MobilePUI;
 
@@ -21,5 +22,11 @@ public class MobilePO extends BasePage {
         waitForElementClickable(driver,MobilePUI.PRODUCT_NAME,productName);
         clickToElement(driver,MobilePUI.PRODUCT_NAME,productName);
         return PageGenerator.getMobileDetailPage(driver);
+    }
+
+    public CheckoutPO addToCartByProductName(String productName) {
+        waitForElementClickable(driver,MobilePUI.ADD_TO_CART_BUTTON,productName);
+        clickToElement(driver,MobilePUI.ADD_TO_CART_BUTTON,productName);
+        return PageGenerator.getCheckoutPage(driver);
     }
 }

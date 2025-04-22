@@ -13,7 +13,7 @@
             <classes>
 <!--                <class name="user.User_Register"/>-->
                 <class name="user.User_Login"/>
-                <class name="product.Product_Verify_Cost"/>
+                <class name="product.Verify_Product_In_Cart"/>
             </classes>
     </test>
 

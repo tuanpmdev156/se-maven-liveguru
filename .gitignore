@@ -16,6 +16,7 @@ target/
 allure-results/
 logs/
 test-output/
+ReportNGScreenShots/
 
 ### Eclipse ###
 .apt_generated
