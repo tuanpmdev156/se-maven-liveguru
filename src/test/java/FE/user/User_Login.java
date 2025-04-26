@@ -1,4 +1,4 @@
-package user;
+package FE.user;
 
 import common.BaseTest;
 import common.CookiesArchive;
@@ -35,14 +35,14 @@ public class User_Login extends BaseTest {
         homePage.clickToAccountMenu();
         writeLog("User_Login - Step 03: Click on Login link");
         loginPage = homePage.clickToLoginLink();
-        writeLog("User_Login - Step 04: Insert login email: " + User_Data_Test.emailAddress);
-        loginPage.enterToFirstNameTextbox(User_Data_Test.emailAddress);
-        writeLog("User_Login - Step 05: Insert login password: " + User_Data_Test.password);
-        loginPage.enterToPasswordTextbox(User_Data_Test.password);
+        writeLog("User_Login - Step 04: Insert login email: " + User_Data_Test.EMAIL_ADDRESS);
+        loginPage.enterToFirstNameTextbox(User_Data_Test.EMAIL_ADDRESS);
+        writeLog("User_Login - Step 05: Insert login password: " + User_Data_Test.PASSWORD);
+        loginPage.enterToPasswordTextbox(User_Data_Test.PASSWORD);
         loginPage.clickToLoginButton();
         myAccountPage = loginPage.confirmAlertPopup();
         writeLog("User_Login - Step 06: Verify login successfully");
-        verifyEquals(myAccountPage.getDashboardWelcomeText(),"Hello, "+ User_Data_Test.firstName+" "+ User_Data_Test.lastName+"!");
+        verifyEquals(myAccountPage.getDashboardWelcomeText(),"Hello, "+ User_Data_Test.FIRST_NAME +" "+ User_Data_Test.LAST_NAME +"!");
         writeLog("User_Login - Step 07: Get cookies after login");
         CookiesArchive.cookie = driver.manage().getCookies();
     }

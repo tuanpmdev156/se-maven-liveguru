@@ -10,9 +10,9 @@ public class User_Data_Test {
 
     //public static String password = DataFakerHelper.getFaker().internet().password();
 
-    public static String firstName = "Ezequiel";
-    public static String lastName = "Farrell";
-    public static String emailAddress = "sydney.mayert@hotmail.com";
-    public static String password = "9956452w4vu";
+    public static String FIRST_NAME = "Ezequiel";
+    public static String LAST_NAME = "Farrell";
+    public static String EMAIL_ADDRESS = "sydney.mayert@hotmail.com";
+    public static String PASSWORD = "9956452w4vu";
 
 }

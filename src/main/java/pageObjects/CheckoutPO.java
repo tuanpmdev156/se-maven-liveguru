@@ -12,7 +12,8 @@ public class CheckoutPO extends BasePage {
     }
 
     public void enterToQuantityTextbox(String productName, String quantity) {
-        waitForElementVisible(driver, CheckoutPUI.QUANTITY_TEXT_BOX,productName);
+        clearElementText(driver, CheckoutPUI.QUANTITY_TEXT_BOX,productName);
+        waitForElementClickable(driver, CheckoutPUI.QUANTITY_TEXT_BOX,productName);
         sendKeyToElement(driver, CheckoutPUI.QUANTITY_TEXT_BOX,quantity,productName);
     }
 
@@ -42,4 +43,35 @@ public class CheckoutPO extends BasePage {
     }
 
 
+    public String getSuccessAddToCartMessage() {
+        waitForElementVisible(driver, CheckoutPUI.ADD_TO_CART_SUCCESS_MESSAGE);
+        return getElementText(driver,CheckoutPUI.ADD_TO_CART_SUCCESS_MESSAGE);
+    }
+
+    public void enterToDiscountCodeTextbox(String discountCode) {
+        clearElementText(driver,CheckoutPUI.DISCOUNT_CODE_TEXT_BOX);
+        waitForElementClickable(driver,CheckoutPUI.DISCOUNT_CODE_TEXT_BOX);
+        sendKeyToElement(driver,CheckoutPUI.DISCOUNT_CODE_TEXT_BOX,discountCode);
+    }
+
+    public void clickToApplyLink() {
+        waitForElementClickable(driver,CheckoutPUI.APPLY_DISCOUNT_CODE_LINK);
+        clickToElement(driver,CheckoutPUI.APPLY_DISCOUNT_CODE_LINK);
+    }
+
+    public String getAppliedCouponCodeSuccessMessage() {
+        sleepInSeconds(2);
+        waitForElementVisible(driver,CheckoutPUI.APPLY_COUPON_CODE_SUCCESS_MESSAGE);
+        return getElementText(driver,CheckoutPUI.APPLY_COUPON_CODE_SUCCESS_MESSAGE);
+    }
+
+    public String getDiscountValue(String discountCode) {
+        waitForElementVisible(driver,CheckoutPUI.DISCOUNT_VALUE,discountCode);
+        return getElementText(driver,CheckoutPUI.DISCOUNT_VALUE,discountCode);
+    }
+
+    public String getGrandTotalValue() {
+        waitForElementVisible(driver,CheckoutPUI.GRAND_TOTAL_VALUE);
+        return getElementText(driver,CheckoutPUI.GRAND_TOTAL_VALUE  );
+    }
 }

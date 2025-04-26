@@ -12,8 +12,8 @@
             <parameter name="browser" value="firefox"/>
             <classes>
 <!--                <class name="user.User_Register"/>-->
-                <class name="user.User_Login"/>
-                <class name="product.Verify_Product_In_Cart"/>
+                <class name="FE.user.User_Login"/>
+                <class name="FE.product.Verify_Product"/>
             </classes>
     </test>
 
