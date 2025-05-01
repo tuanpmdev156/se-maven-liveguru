@@ -15,11 +15,11 @@ public class PageGenerator {
     public static LoginPO getLoginPage(WebDriver driver) {
         return new LoginPO(driver);
     }
-    public static MobilePO getMobilePage(WebDriver driver) {
-        return new MobilePO(driver);
+    public static ProductCategoryPO getMobilePage(WebDriver driver) {
+        return new ProductCategoryPO(driver);
     }
-    public static MobileDetailPO getMobileDetailPage(WebDriver driver) {
-        return new MobileDetailPO(driver);
+    public static ProductDetailPO getMobileDetailPage(WebDriver driver) {
+        return new ProductDetailPO(driver);
     }
     public static CheckoutPO getCheckoutPage(WebDriver driver) {
         return new CheckoutPO(driver);
@@ -27,5 +27,10 @@ public class PageGenerator {
     public static CompareProductPO getCompareProductPage(WebDriver driver) {
         return new CompareProductPO(driver);
     }
-
+    public static MyWishlistPO getMyWishlistPage(WebDriver driver) {
+        return new MyWishlistPO(driver);
+    }
+    public static ShareWishlistPO getShareWishlistPage(WebDriver driver) {
+        return new ShareWishlistPO(driver);
+    }
 }

@@ -28,9 +28,15 @@ public class HomePO extends BasePage {
         return PageGenerator.getLoginPage(driver);
     }
 
-    public MobilePO clickToMobileLink() {
+    public ProductCategoryPO clickToMobileLink() {
         waitForElementClickable(driver, HomePUI.MOBILE_LINK);
         clickToElement(driver,HomePUI.MOBILE_LINK);
+        return PageGenerator.getMobilePage(driver);
+    }
+
+    public ProductCategoryPO clickToTVLink() {
+        waitForElementClickable(driver, HomePUI.TV_LINK);
+        clickToElement(driver,HomePUI.TV_LINK);
         return PageGenerator.getMobilePage(driver);
     }
 }

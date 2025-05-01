@@ -3,6 +3,7 @@ package FE.product;
 import common.BaseTest;
 import common.Product_Data_Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.devtools.v85.page.Page;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -12,10 +13,13 @@ import pageObjects.*;
 public class Verify_Product extends BaseTest {
     private WebDriver driver;
     private HomePO homePage;
-    private MobilePO mobilePage;
+    private ProductCategoryPO productCategoryPage;
     private CheckoutPO checkoutPage;
-    private MobileDetailPO mobileDetailPage;
+    private ProductDetailPO productDetailPage;
     private CompareProductPO compareProductPage;
+    private MyWishlistPO myWishlistPage;
+    private ShareWishlistPO shareWishlistPage;
+
 
 
     @Parameters({"browser", "url"})
@@ -31,13 +35,13 @@ public class Verify_Product extends BaseTest {
     @Test
     public void TC_04_Verify_Detail_Product_Price() {
         writeLog("Verify_Product_Price - Step 03: Click to Mobile link");
-        mobilePage = homePage.clickToMobileLink();
+        productCategoryPage = homePage.clickToMobileLink();
         writeLog("Verify_Product_Price - Step 04: Get product price");
-        String productPrice = mobilePage.getPriceByProductName(Product_Data_Test.PRODUCT_NAME);
+        String productPrice = productCategoryPage.getPriceByProductName(Product_Data_Test.PRODUCT_NAME);
         writeLog("Verify_Product_Price - Step 05: Open product in detail");
-        mobileDetailPage = mobilePage.openProductDetailByName(Product_Data_Test.PRODUCT_NAME);
+        productDetailPage = productCategoryPage.openProductDetailByName(Product_Data_Test.PRODUCT_NAME);
         writeLog("Verify_Product_Price - Step 06: Get product price in detail");
-        String productDetailPrice = mobileDetailPage.getDetailPrice();
+        String productDetailPrice = productDetailPage.getDetailPrice();
         writeLog("Verify_Product_Price - Step 07: Verify product price in detail");
         verifyEquals(productPrice,productDetailPrice);
     }
@@ -45,9 +49,9 @@ public class Verify_Product extends BaseTest {
     @Test
     public void TC_05_Verify_Discount_Coupon() {
         writeLog("Verify_Discount_Coupon - Step 01: Click to Mobile link");
-        mobilePage = homePage.clickToMobileLink();
+        productCategoryPage = homePage.clickToMobileLink();
         writeLog("Verify_Discount_Coupon - Step 02: Add product to cart");
-        checkoutPage = mobilePage.addToCartByProductName(Product_Data_Test.PRODUCT_NAME);
+        checkoutPage = productCategoryPage.addToCartByProductName(Product_Data_Test.PRODUCT_NAME);
         writeLog("Verify_Discount_Coupon - Step 03: Verify product is added to cart");
         verifyEquals(checkoutPage.getAddToCartSuccessMessage(), "Sony Xperia was added to your shopping cart.");
         writeLog("Verify_Discount_Coupon - Step 04: Enter discount code");
@@ -85,17 +89,17 @@ public class Verify_Product extends BaseTest {
     @Test
     public void TC_07_Compare_Two_Product() {
         writeLog("Compare_Two_Product - Step 01: Click to Mobile link");
-        mobilePage = homePage.clickToMobileLink();
+        productCategoryPage = homePage.clickToMobileLink();
         writeLog("Compare_Two_Product - Step 02: Add product to compare");
-        mobilePage.addToCompareByProductName("Sony Xperia");
+        productCategoryPage.addToCompareByProductName("Sony Xperia");
         writeLog("Compare_Two_Product - Step 03: Verify product has been added to comparison list");
-        verifyEquals(mobilePage.getAddToCompareSuccessMessage(), "The product Sony Xperia has been added to comparison list.");
-        mobilePage.addToCompareByProductName("IPhone");
-        verifyEquals(mobilePage.getAddToCompareSuccessMessage(), "The product IPhone has been added to comparison list.");
+        verifyEquals(productCategoryPage.getAddToCompareSuccessMessage(), "The product Sony Xperia has been added to comparison list.");
+        productCategoryPage.addToCompareByProductName("IPhone");
+        verifyEquals(productCategoryPage.getAddToCompareSuccessMessage(), "The product IPhone has been added to comparison list.");
         writeLog("Compare_Two_Product - Step 04: Click to Compare button");
-        mobilePage.clickToCompareButton();
+        productCategoryPage.clickToCompareButton();
         writeLog("Compare_Two_Product - Step 05: Switch to compare product window");
-        mobilePage.switchToWindowByTitle(driver, "Products Comparison List - Magento Commerce");
+        productCategoryPage.switchToWindowByTitle(driver, "Products Comparison List - Magento Commerce");
         compareProductPage = PageGenerator.getCompareProductPage(driver);
         writeLog("Compare_Two_Product - Step 06: Verify compare window heading");
         verifyTrue(compareProductPage.isHeadingDisplayed());
@@ -115,15 +119,31 @@ public class Verify_Product extends BaseTest {
         compareProductPage.clickToCloseWindowButton();
         writeLog("Compare_Two_Product - Step 12: Switch to Mobile window");
         compareProductPage.switchToWindowByTitle(driver,"Mobile");
-        mobilePage = PageGenerator.getMobilePage(driver);
+        productCategoryPage = PageGenerator.getMobilePage(driver);
         writeLog("Compare_Two_Product - Step 13: Verify switched to Mobile window success");
-        verifyEquals(mobilePage.getPageTitle(driver),"Mobile");
+        verifyEquals(productCategoryPage.getPageTitle(driver),"Mobile");
     }
-
+    @Test
+    public void TC_08_Verify_Sharing_Wishlist() {
+        productCategoryPage = homePage.clickToTVLink();
+        productCategoryPage.addToWishlistByProductName("LG LCD");
+        myWishlistPage = PageGenerator.getMyWishlistPage(driver);
+        verifyEquals(myWishlistPage.getAddToWishlistSuccessMsg(),"LG LCD has been added to your wishlist. Click here to continue shopping.");
+        myWishlistPage.clickToShareWishlistBtn();
+        myWishlistPage.acceptAlert(driver);
+        shareWishlistPage = PageGenerator.getShareWishlistPage(driver);
+        shareWishlistPage.enterToShareEmailTextbox("abc@gmail.com");
+        shareWishlistPage.enterToShareMessageTextbox("abc@gmail.com");
+        shareWishlistPage.clickToShareWishlistBtn();
+        shareWishlistPage.acceptAlert(driver);
+        myWishlistPage = PageGenerator.getMyWishlistPage(driver);
+        verifyEquals(myWishlistPage.getSharingSuccessMsg(),"Your Wishlist has been shared.");
+        verifyTrue(myWishlistPage.isProductDisplayedInWishlist("LG LCD"));
+    }
 
 
     @AfterClass
     public void afterClass() {
-        closeBrowserDriver();
+        //closeBrowserDriver();
     }
 }
