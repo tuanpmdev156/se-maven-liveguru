@@ -15,4 +15,5 @@ public class MobileDetailPO extends BasePage {
         waitForElementVisible(driver, MobileDetailPUI.PRODUCT_PRICE);
         return getElementText(driver, MobileDetailPUI.PRODUCT_PRICE);
     }
+
 }

@@ -29,4 +29,19 @@ public class MobilePO extends BasePage {
         clickToElement(driver,MobilePUI.ADD_TO_CART_BUTTON,productName);
         return PageGenerator.getCheckoutPage(driver);
     }
+
+    public void addToCompareByProductName(String productName) {
+        waitForElementClickable(driver, MobilePUI.ADD_TO_COMPARE_BUTTON,productName);
+        clickToElement(driver,MobilePUI.ADD_TO_COMPARE_BUTTON,productName);
+    }
+
+    public String getAddToCompareSuccessMessage() {
+        waitForElementVisible(driver, MobilePUI.ADD_TO_COMPARE_SUCCESS_MESSAGE);
+        return getElementText(driver,MobilePUI.ADD_TO_COMPARE_SUCCESS_MESSAGE);
+    }
+
+    public void clickToCompareButton() {
+        waitForElementClickable(driver, MobileDetailPUI.COMPARE_PRODUCT_BTN);
+        clickToElement(driver, MobileDetailPUI.COMPARE_PRODUCT_BTN);
+    }
 }

@@ -13,7 +13,11 @@
             <classes>
 <!--                <class name="user.User_Register"/>-->
                 <class name="FE.user.User_Login"/>
-                <class name="FE.product.Verify_Product"/>
+                <class name="FE.product.Verify_Product">
+                    <methods>
+                        <include name="TC_07_Compare_Two_Product"/>
+                    </methods>
+                </class>
             </classes>
     </test>
 

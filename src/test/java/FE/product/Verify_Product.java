@@ -14,8 +14,8 @@ public class Verify_Product extends BaseTest {
     private HomePO homePage;
     private MobilePO mobilePage;
     private CheckoutPO checkoutPage;
-
     private MobileDetailPO mobileDetailPage;
+    private CompareProductPO compareProductPage;
 
 
     @Parameters({"browser", "url"})
@@ -44,22 +44,22 @@ public class Verify_Product extends BaseTest {
 
     @Test
     public void TC_05_Verify_Discount_Coupon() {
-        writeLog("Verify_Discount_Coupon - Step 03: Click to Mobile link");
+        writeLog("Verify_Discount_Coupon - Step 01: Click to Mobile link");
         mobilePage = homePage.clickToMobileLink();
-        writeLog("Verify_Discount_Coupon - Step 04: Add product to cart");
+        writeLog("Verify_Discount_Coupon - Step 02: Add product to cart");
         checkoutPage = mobilePage.addToCartByProductName(Product_Data_Test.PRODUCT_NAME);
-        writeLog("Verify_Discount_Coupon - Step 05: Verify product is added to cart");
-        verifyEquals(checkoutPage.getSuccessAddToCartMessage(), "Sony Xperia was added to your shopping cart.");
-        writeLog("Verify_Discount_Coupon - Step 06: Enter discount code");
+        writeLog("Verify_Discount_Coupon - Step 03: Verify product is added to cart");
+        verifyEquals(checkoutPage.getAddToCartSuccessMessage(), "Sony Xperia was added to your shopping cart.");
+        writeLog("Verify_Discount_Coupon - Step 04: Enter discount code");
         checkoutPage.enterToDiscountCodeTextbox(Product_Data_Test.COUPLE_CODE);
-        writeLog("Verify_Discount_Coupon - Step 07: Click apply link");
+        writeLog("Verify_Discount_Coupon - Step 05: Click apply link");
         checkoutPage.clickToApplyLink();
         checkoutPage.acceptAlert(driver);
-        writeLog("Verify_Discount_Coupon - Step 08: Verify coupon is applied");
+        writeLog("Verify_Discount_Coupon - Step 06: Verify coupon is applied");
         verifyEquals(checkoutPage.getAppliedCouponCodeSuccessMessage(), "Coupon code \"GURU50\" was applied.");
-        writeLog("Verify_Discount_Coupon - Step 09: Verify discount value");
+        writeLog("Verify_Discount_Coupon - Step 07: Verify discount value");
         verifyEquals(checkoutPage.getDiscountValue(Product_Data_Test.COUPLE_CODE),"-$5.00");
-        writeLog("Verify_Discount_Coupon - Step 09: Verify grand total value");
+        writeLog("Verify_Discount_Coupon - Step 08: Verify grand total value");
         // Bug here
         verifyEquals(checkoutPage.getGrandTotalValue(),"$95.00");
     }
@@ -81,6 +81,46 @@ public class Verify_Product extends BaseTest {
         writeLog("Verify_Product_In_Cart - Step 06: Verify cart is empty");
         verifyEquals(checkoutPage.getCartEmptyMessage(),"SHOPPING CART IS EMPTY");
     }
+
+    @Test
+    public void TC_07_Compare_Two_Product() {
+        writeLog("Compare_Two_Product - Step 01: Click to Mobile link");
+        mobilePage = homePage.clickToMobileLink();
+        writeLog("Compare_Two_Product - Step 02: Add product to compare");
+        mobilePage.addToCompareByProductName("Sony Xperia");
+        writeLog("Compare_Two_Product - Step 03: Verify product has been added to comparison list");
+        verifyEquals(mobilePage.getAddToCompareSuccessMessage(), "The product Sony Xperia has been added to comparison list.");
+        mobilePage.addToCompareByProductName("IPhone");
+        verifyEquals(mobilePage.getAddToCompareSuccessMessage(), "The product IPhone has been added to comparison list.");
+        writeLog("Compare_Two_Product - Step 04: Click to Compare button");
+        mobilePage.clickToCompareButton();
+        writeLog("Compare_Two_Product - Step 05: Switch to compare product window");
+        mobilePage.switchToWindowByTitle(driver, "Products Comparison List - Magento Commerce");
+        compareProductPage = PageGenerator.getCompareProductPage(driver);
+        writeLog("Compare_Two_Product - Step 06: Verify compare window heading");
+        verifyTrue(compareProductPage.isHeadingDisplayed());
+        writeLog("Compare_Two_Product - Step 07: Verify product name ");
+        verifyTrue(compareProductPage.isProductNameDisplayed("Sony Xperia"));
+        verifyTrue(compareProductPage.isProductNameDisplayed("IPhone"));
+        writeLog("Compare_Two_Product - Step 08: Verify product price ");
+        verifyTrue(compareProductPage.isProductPriceDisplayed("Sony Xperia","$100.00"));
+        verifyTrue(compareProductPage.isProductPriceDisplayed("IPhone", "$500.00"));
+        writeLog("Compare_Two_Product - Step 09: Verify product image");
+        verifyTrue(compareProductPage.isProductImageDisplayed("Sony Xperia","xperia.jpg"));
+        verifyTrue(compareProductPage.isProductImageDisplayed("IPhone", "iphone.png"));
+        writeLog("Compare_Two_Product - Step 10: Verify product SKU");
+        verifyTrue(compareProductPage.isProductSKUDisplayed("Sony Xperia","MOB001"));
+        verifyTrue(compareProductPage.isProductSKUDisplayed("IPhone", "MOB0002"));
+        writeLog("Compare_Two_Product - Step 11: Close compare window");
+        compareProductPage.clickToCloseWindowButton();
+        writeLog("Compare_Two_Product - Step 12: Switch to Mobile window");
+        compareProductPage.switchToWindowByTitle(driver,"Mobile");
+        mobilePage = PageGenerator.getMobilePage(driver);
+        writeLog("Compare_Two_Product - Step 13: Verify switched to Mobile window success");
+        verifyEquals(mobilePage.getPageTitle(driver),"Mobile");
+    }
+
+
 
     @AfterClass
     public void afterClass() {

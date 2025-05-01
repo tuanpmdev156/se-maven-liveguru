@@ -43,7 +43,7 @@ public class CheckoutPO extends BasePage {
     }
 
 
-    public String getSuccessAddToCartMessage() {
+    public String getAddToCartSuccessMessage() {
         waitForElementVisible(driver, CheckoutPUI.ADD_TO_CART_SUCCESS_MESSAGE);
         return getElementText(driver,CheckoutPUI.ADD_TO_CART_SUCCESS_MESSAGE);
     }
