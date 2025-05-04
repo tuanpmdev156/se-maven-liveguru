@@ -17,10 +17,10 @@ public class ProductCategoryPO extends BasePage {
         return getElementText(driver, ProductCategoryPUI.PRODUCT_PRICE,productName);
     }
 
-    public ProductDetailPO openProductDetailByName(String productName) {
+    public ProductDetailPO openDetailProductByName(String productName) {
         waitForElementClickable(driver, ProductCategoryPUI.PRODUCT_NAME,productName);
         clickToElement(driver, ProductCategoryPUI.PRODUCT_NAME,productName);
-        return PageGenerator.getMobileDetailPage(driver);
+        return PageGenerator.getProductDetailPage(driver);
     }
 
     public CheckoutPO addToCartByProductName(String productName) {

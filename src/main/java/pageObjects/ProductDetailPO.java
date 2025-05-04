@@ -16,4 +16,8 @@ public class ProductDetailPO extends BasePage {
         return getElementText(driver, ProductDetailPUI.PRODUCT_PRICE);
     }
 
+    public void clickToAddYourReviewLink() {
+        waitForElementClickable(driver, ProductDetailPUI.ADD_YOUR_REVIEW_LINK);
+        clickToElement(driver, ProductDetailPUI.ADD_YOUR_REVIEW_LINK);
+    }
 }

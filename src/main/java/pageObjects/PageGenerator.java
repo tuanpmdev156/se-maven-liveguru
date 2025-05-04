@@ -18,7 +18,7 @@ public class PageGenerator {
     public static ProductCategoryPO getMobilePage(WebDriver driver) {
         return new ProductCategoryPO(driver);
     }
-    public static ProductDetailPO getMobileDetailPage(WebDriver driver) {
+    public static ProductDetailPO getProductDetailPage(WebDriver driver) {
         return new ProductDetailPO(driver);
     }
     public static CheckoutPO getCheckoutPage(WebDriver driver) {
@@ -32,5 +32,9 @@ public class PageGenerator {
     }
     public static ShareWishlistPO getShareWishlistPage(WebDriver driver) {
         return new ShareWishlistPO(driver);
+    }
+
+    public static ProductReviewPO getProductReviewPage(WebDriver driver) {
+        return new ProductReviewPO(driver);
     }
 }

@@ -39,4 +39,9 @@ public class HomePO extends BasePage {
         clickToElement(driver,HomePUI.TV_LINK);
         return PageGenerator.getMobilePage(driver);
     }
+
+    public boolean isReviewSuccessMsgDisplayed(String message) {
+        waitForElementVisible(driver, HomePUI.REVIEW_SUCCESS_MSG,message);
+        return isElementDisplayed(driver, HomePUI.REVIEW_SUCCESS_MSG,message);
+    }
 }

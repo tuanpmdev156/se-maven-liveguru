@@ -16,6 +16,9 @@ public class Verify_Product extends BaseTest {
     private ProductCategoryPO productCategoryPage;
     private CheckoutPO checkoutPage;
     private ProductDetailPO productDetailPage;
+
+    private ProductReviewPO productReviewPage;
+
     private CompareProductPO compareProductPage;
     private MyWishlistPO myWishlistPage;
     private ShareWishlistPO shareWishlistPage;
@@ -39,7 +42,7 @@ public class Verify_Product extends BaseTest {
         writeLog("Verify_Product_Price - Step 04: Get product price");
         String productPrice = productCategoryPage.getPriceByProductName(Product_Data_Test.PRODUCT_NAME);
         writeLog("Verify_Product_Price - Step 05: Open product in detail");
-        productDetailPage = productCategoryPage.openProductDetailByName(Product_Data_Test.PRODUCT_NAME);
+        productDetailPage = productCategoryPage.openDetailProductByName(Product_Data_Test.PRODUCT_NAME);
         writeLog("Verify_Product_Price - Step 06: Get product price in detail");
         String productDetailPrice = productDetailPage.getDetailPrice();
         writeLog("Verify_Product_Price - Step 07: Verify product price in detail");
@@ -139,6 +142,33 @@ public class Verify_Product extends BaseTest {
         myWishlistPage = PageGenerator.getMyWishlistPage(driver);
         verifyEquals(myWishlistPage.getSharingSuccessMsg(),"Your Wishlist has been shared.");
         verifyTrue(myWishlistPage.isProductDisplayedInWishlist("LG LCD"));
+    }
+
+    @Test
+    public void TC_09_Verify_Review_Product() {
+        productCategoryPage = homePage.clickToTVLink();
+        productCategoryPage.openDetailProductByName("LG LCD");
+        productDetailPage = PageGenerator.getProductDetailPage(driver);
+        productDetailPage.clickToAddYourReviewLink();
+        productReviewPage = PageGenerator.getProductReviewPage(driver);
+        // Submit review with empty data
+        productReviewPage.clearReviewField();
+        productReviewPage.clearSummaryReviewField();
+        productReviewPage.clickToSubmitReviewBtn();
+        verifyTrue(productReviewPage.isQualityRatingRequiredMsgDisplayed("Please select one of each of the ratings above"));
+        verifyTrue(productReviewPage.isReviewRequiredMsgDisplayed("This is a required field."));
+        verifyTrue(productReviewPage.isSummaryReviewRequiredMsgDisplayed("This is a required field."));
+        // Submit review with data
+        productReviewPage.selectQualityRatingRadioBtn(Product_Data_Test.QUALITY_RATING);
+        productReviewPage.clearReviewField();
+        productReviewPage.enterToReviewField(Product_Data_Test.YOUR_THOUGHT);
+        productReviewPage.clearSummaryReviewField();
+        productReviewPage.enterToSummaryReviewField(Product_Data_Test.SUMMARY_REVIEW_DATA);
+        productReviewPage.clickToSubmitReviewBtn();
+        productReviewPage.acceptAlert(driver);
+        homePage = PageGenerator.getHomePage(driver);
+        verifyTrue(homePage.isReviewSuccessMsgDisplayed("Your review has been accepted for moderation."));
+
     }
 
 
