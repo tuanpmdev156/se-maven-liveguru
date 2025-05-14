@@ -128,52 +128,78 @@ public class Verify_Product extends BaseTest {
     }
     @Test
     public void TC_08_Verify_Sharing_Wishlist() {
+        writeLog("Verify_Sharing_Wishlist - Step 01: Click to TV link");
         productCategoryPage = homePage.clickToTVLink();
+        writeLog("Verify_Sharing_Wishlist - Step 02: Add product to wishlist");
         productCategoryPage.addToWishlistByProductName("LG LCD");
         myWishlistPage = PageGenerator.getMyWishlistPage(driver);
+        writeLog("Verify_Sharing_Wishlist - Step 03: Verify product is added to wishlist");
         verifyEquals(myWishlistPage.getAddToWishlistSuccessMsg(),"LG LCD has been added to your wishlist. Click here to continue shopping.");
+        writeLog("Verify_Sharing_Wishlist - Step 04: Click to share wishlist button");
         myWishlistPage.clickToShareWishlistBtn();
         myWishlistPage.acceptAlert(driver);
         shareWishlistPage = PageGenerator.getShareWishlistPage(driver);
+        writeLog("Verify_Sharing_Wishlist - Step 05: Enter to share email textbox");
         shareWishlistPage.enterToShareEmailTextbox("abc@gmail.com");
+        writeLog("Verify_Sharing_Wishlist - Step 06: Enter to share message textbox");
         shareWishlistPage.enterToShareMessageTextbox("abc@gmail.com");
+        writeLog("Verify_Sharing_Wishlist - Step 07: Click to share wishlist button");
         shareWishlistPage.clickToShareWishlistBtn();
         shareWishlistPage.acceptAlert(driver);
         myWishlistPage = PageGenerator.getMyWishlistPage(driver);
+        writeLog("Verify_Sharing_Wishlist - Step 08: Verify sharing success message");
         verifyEquals(myWishlistPage.getSharingSuccessMsg(),"Your Wishlist has been shared.");
+        writeLog("Verify_Sharing_Wishlist - Step 09: Verify wishlist has product LG LCD");
         verifyTrue(myWishlistPage.isProductDisplayedInWishlist("LG LCD"));
     }
 
     @Test
     public void TC_09_Verify_Review_Product() {
+        writeLog("Verify_Review_Product - Step 01: Click to TV link");
         productCategoryPage = homePage.clickToTVLink();
+
+        writeLog("Verify_Review_Product - Step 02: Open detail page of product 'LG LCD'");
         productCategoryPage.openDetailProductByName("LG LCD");
         productDetailPage = PageGenerator.getProductDetailPage(driver);
+
+        writeLog("Verify_Review_Product - Step 03: Click to 'Add Your Review' link");
         productDetailPage.clickToAddYourReviewLink();
         productReviewPage = PageGenerator.getProductReviewPage(driver);
+
         // Submit review with empty data
+        writeLog("Verify_Review_Product - Step 04: Clear review and summary fields, then click submit");
         productReviewPage.clearReviewField();
         productReviewPage.clearSummaryReviewField();
         productReviewPage.clickToSubmitReviewBtn();
+
+        writeLog("Verify_Review_Product - Step 05: Verify required messages are displayed");
         verifyTrue(productReviewPage.isQualityRatingRequiredMsgDisplayed("Please select one of each of the ratings above"));
         verifyTrue(productReviewPage.isReviewRequiredMsgDisplayed("This is a required field."));
         verifyTrue(productReviewPage.isSummaryReviewRequiredMsgDisplayed("This is a required field."));
+
         // Submit review with data
+        writeLog("Verify_Review_Product - Step 06: Select quality rating");
         productReviewPage.selectQualityRatingRadioBtn(Product_Data_Test.QUALITY_RATING);
+
+        writeLog("Verify_Review_Product - Step 07: Enter review and summary data");
         productReviewPage.clearReviewField();
         productReviewPage.enterToReviewField(Product_Data_Test.YOUR_THOUGHT);
         productReviewPage.clearSummaryReviewField();
         productReviewPage.enterToSummaryReviewField(Product_Data_Test.SUMMARY_REVIEW_DATA);
+
+        writeLog("Verify_Review_Product - Step 08: Click to submit review button");
         productReviewPage.clickToSubmitReviewBtn();
         productReviewPage.acceptAlert(driver);
         homePage = PageGenerator.getHomePage(driver);
-        verifyTrue(homePage.isReviewSuccessMsgDisplayed("Your review has been accepted for moderation."));
 
+        writeLog("Verify_Review_Product - Step 09: Verify review success message");
+        verifyTrue(homePage.isReviewSuccessMsgDisplayed("Your review has been accepted for moderation."));
     }
+
 
 
     @AfterClass
     public void afterClass() {
-        //closeBrowserDriver();
+        closeBrowserDriver();
     }
 }
