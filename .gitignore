@@ -8,12 +8,14 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/inspectionProfiles/
 *.iws
 *.iml
 *.ipr
 
 # Allure results
 allure-results/
+allure-report/
 logs/
 test-output/
 ReportNGScreenShots/

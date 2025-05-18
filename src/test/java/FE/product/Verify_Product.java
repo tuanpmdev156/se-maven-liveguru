@@ -1,24 +1,21 @@
 package FE.product;
 
-import common.BaseTest;
 import common.Product_Data_Test;
+import common.StepLogger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.devtools.v85.page.Page;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.*;
 
-public class Verify_Product extends BaseTest {
+public class Verify_Product extends StepLogger {
     private WebDriver driver;
     private HomePO homePage;
     private ProductCategoryPO productCategoryPage;
     private CheckoutPO checkoutPage;
     private ProductDetailPO productDetailPage;
-
     private ProductReviewPO productReviewPage;
-
     private CompareProductPO compareProductPage;
     private MyWishlistPO myWishlistPage;
     private ShareWishlistPO shareWishlistPage;
@@ -155,44 +152,57 @@ public class Verify_Product extends BaseTest {
 
     @Test
     public void TC_09_Verify_Review_Product() {
-        writeLog("Verify_Review_Product - Step 01: Click to TV link");
+        StepLogger.reset();
+        logStep("Verify_Review_Product","Click to TV link");
         productCategoryPage = homePage.clickToTVLink();
 
-        writeLog("Verify_Review_Product - Step 02: Open detail page of product 'LG LCD'");
+        logStep("Verify_Review_Product","Open detail page of product 'LG LCD'");
         productCategoryPage.openDetailProductByName("LG LCD");
         productDetailPage = PageGenerator.getProductDetailPage(driver);
 
-        writeLog("Verify_Review_Product - Step 03: Click to 'Add Your Review' link");
+        logStep("Verify_Review_Product","Click to 'Add Your Review' link");
         productDetailPage.clickToAddYourReviewLink();
         productReviewPage = PageGenerator.getProductReviewPage(driver);
 
         // Submit review with empty data
-        writeLog("Verify_Review_Product - Step 04: Clear review and summary fields, then click submit");
+        logStep("Verify_Review_Product","Clear review field");
         productReviewPage.clearReviewField();
+        logStep("Verify_Review_Product","Clear summary review field");
         productReviewPage.clearSummaryReviewField();
+        logStep("Verify_Review_Product","Click to submit review button");
         productReviewPage.clickToSubmitReviewBtn();
 
-        writeLog("Verify_Review_Product - Step 05: Verify required messages are displayed");
+        // Verify require messages
+        logStep("Verify_Review_Product","Verify quality rating message is displayed");
         verifyTrue(productReviewPage.isQualityRatingRequiredMsgDisplayed("Please select one of each of the ratings above"));
+
+        logStep("Verify_Review_Product","Verify review message is displayed");
         verifyTrue(productReviewPage.isReviewRequiredMsgDisplayed("This is a required field."));
+
+        logStep("Verify_Review_Product","Verify summary review message is displayed");
         verifyTrue(productReviewPage.isSummaryReviewRequiredMsgDisplayed("This is a required field."));
 
         // Submit review with data
-        writeLog("Verify_Review_Product - Step 06: Select quality rating");
+        logStep("Verify_Review_Product","Select quality rating");
         productReviewPage.selectQualityRatingRadioBtn(Product_Data_Test.QUALITY_RATING);
 
-        writeLog("Verify_Review_Product - Step 07: Enter review and summary data");
+        logStep("Verify_Review_Product","Clear review field");
         productReviewPage.clearReviewField();
+        logStep("Verify_Review_Product","Enter value to review field : " + Product_Data_Test.YOUR_THOUGHT);
         productReviewPage.enterToReviewField(Product_Data_Test.YOUR_THOUGHT);
+
+        logStep("Verify_Review_Product","Clear summary review field");
         productReviewPage.clearSummaryReviewField();
+        logStep("Verify_Review_Product","Enter value to summary review field : " + Product_Data_Test.SUMMARY_REVIEW_DATA);
         productReviewPage.enterToSummaryReviewField(Product_Data_Test.SUMMARY_REVIEW_DATA);
 
-        writeLog("Verify_Review_Product - Step 08: Click to submit review button");
+        logStep("Verify_Review_Product","Click to submit review button");
         productReviewPage.clickToSubmitReviewBtn();
+        logStep("Verify_Review_Product","Accept alert");
         productReviewPage.acceptAlert(driver);
+        logStep("Verify_Review_Product","Navigate to home page");
         homePage = PageGenerator.getHomePage(driver);
-
-        writeLog("Verify_Review_Product - Step 09: Verify review success message");
+        logStep("Verify_Review_Product","Verify review success message");
         verifyTrue(homePage.isReviewSuccessMsgDisplayed("Your review has been accepted for moderation."));
     }
 
