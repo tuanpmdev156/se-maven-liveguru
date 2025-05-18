@@ -33,8 +33,14 @@ public class PageGenerator {
     public static ShareWishlistPO getShareWishlistPage(WebDriver driver) {
         return new ShareWishlistPO(driver);
     }
-
     public static ProductReviewPO getProductReviewPage(WebDriver driver) {
         return new ProductReviewPO(driver);
     }
+    public static AdvancedSearchPO getAdvancedSearchPage(WebDriver driver) {
+        return new AdvancedSearchPO(driver);
+    }
+    public static AdvancedSearchDetailPO getAdvancedSearchDetailPage(WebDriver driver) {
+        return new AdvancedSearchDetailPO(driver);
+    }
+
 }

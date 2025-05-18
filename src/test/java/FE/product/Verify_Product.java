@@ -19,16 +19,18 @@ public class Verify_Product extends StepLogger {
     private CompareProductPO compareProductPage;
     private MyWishlistPO myWishlistPage;
     private ShareWishlistPO shareWishlistPage;
+    private AdvancedSearchPO advancedSearchPage;
+    private AdvancedSearchDetailPO advancedSearchDetailPage;
 
 
 
     @Parameters({"browser", "url"})
     @BeforeClass
     public void beforeClass(String browserName, String url) {
-        writeLog("Verify_Discount_Coupon - Step 01: Open URL");
+        logStep("Before Class","Open URL");
         driver = getBrowserDriver(browserName, url);
         homePage = PageGenerator.getHomePage(driver);
-        writeLog("Verify_Discount_Coupon - Step 02: Set cookie and reload page");
+        logStep("Before Class","Set cookie and reload page");
         setCookieAndReloadPage();
     }
 
@@ -206,6 +208,32 @@ public class Verify_Product extends StepLogger {
         verifyTrue(homePage.isReviewSuccessMsgDisplayed("Your review has been accepted for moderation."));
     }
 
+    @Test
+    public void TC_10_Verify_Purchase_Product(){
+        // Skip, cannot execute manual test
+    }
+
+    @Test
+    public void TC_11_Verify_Search_Functionality(){
+        logStep("TC_11_Verify_Search_Functionality","Click to Advanced Search link");
+        homePage.clickToAdvancedSearchLink();
+        logStep("TC_11_Verify_Search_Functionality","Get Advanced Search page");
+        advancedSearchPage = PageGenerator.getAdvancedSearchPage(driver);
+        logStep("TC_11_Verify_Search_Functionality","Enter to Price range textbox with value: " + Product_Data_Test.SEARCH_PRICE_FROM);
+        advancedSearchPage.enterToSearchPriceFromTextbox(Product_Data_Test.SEARCH_PRICE_FROM);
+        logStep("TC_11_Verify_Search_Functionality","Enter to Price range textbox with value: " + Product_Data_Test.SEARCH_PRICE_TO);
+        advancedSearchPage.enterToSearchPriceToTextbox(Product_Data_Test.SEARCH_PRICE_TO);
+        logStep("TC_11_Verify_Search_Functionality","Click to Search button");
+        advancedSearchPage.clickToSearchButton();
+        logStep("TC_11_Verify_Search_Functionality","Accept Alert");
+        advancedSearchPage.acceptAlert(driver);
+        logStep("TC_11_Verify_Search_Functionality","Get Advanced Search Detail page");
+        advancedSearchDetailPage = PageGenerator.getAdvancedSearchDetailPage(driver);
+        logStep("TC_11_Verify_Search_Functionality","Verify search price range is displayed");
+        verifyTrue(advancedSearchDetailPage.isSearchPriceRangeDisplayed(Product_Data_Test.SEARCH_PRICE_FROM,Product_Data_Test.SEARCH_PRICE_TO));
+        logStep("TC_11_Verify_Search_Functionality","Verify products are displayed in search range");
+        verifyTrue(advancedSearchDetailPage.areProductsDisplayedInSearchRange(Product_Data_Test.SEARCH_PRICE_FROM,Product_Data_Test.SEARCH_PRICE_TO));
+    }
 
 
     @AfterClass

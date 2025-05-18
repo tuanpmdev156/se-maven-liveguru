@@ -44,4 +44,9 @@ public class HomePO extends BasePage {
         waitForElementVisible(driver, HomePUI.REVIEW_SUCCESS_MSG,message);
         return isElementDisplayed(driver, HomePUI.REVIEW_SUCCESS_MSG,message);
     }
+
+    public void clickToAdvancedSearchLink() {
+        waitForElementClickable(driver, HomePUI.ADVANCED_SEARCH_LINK);
+        clickToElement(driver, HomePUI.ADVANCED_SEARCH_LINK);
+    }
 }

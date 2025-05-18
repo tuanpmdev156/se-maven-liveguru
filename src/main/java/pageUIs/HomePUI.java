@@ -7,4 +7,5 @@ public class HomePUI {
     public static final String MOBILE_LINK = "xpath=//div[@id='header-nav']//a[text()='Mobile']";
     public static final String TV_LINK = "xpath=//div[@id='header-nav']//a[text()='TV']";
     public static final String REVIEW_SUCCESS_MSG = "xpath=//li[@class='success-msg']//span[text()='%s']";
+    public static final String ADVANCED_SEARCH_LINK = "xpath=//a[@title='Advanced Search']";
 }

@@ -15,7 +15,7 @@
                 <class name="FE.user.User_Login"/>
                 <class name="FE.product.Verify_Product">
                     <methods>
-                        <include name="TC_09_Verify_Review_Product"/>
+                        <include name="TC_11_Verify_Search_Functionality"/>
                     </methods>
                 </class>
             </classes>
