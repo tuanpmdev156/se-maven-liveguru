@@ -7,38 +7,54 @@
         <listener class-name="utilities.MethodListener"/>
         <listener class-name="utilities.ReportNGImageListener"/>
     </listeners>
+
     <parameter name="url" value="https://live.techpanda.org"/>
-    <test name = "Run on Firefox">
-            <parameter name="browser" value="firefox"/>
-            <classes>
-<!--                <class name="FE.user.User_Register"/>-->
-                <class name="FE.user.User_Login"/>
-                <class name="FE.product.Verify_Product">
-                    <methods>
-                        <include name="TC_11_Verify_Search_Functionality"/>
-                    </methods>
-                </class>
-            </classes>
+
+    <test name="Run on Firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="frontend.user.FE_User_Login"/>
+            <class name="frontend.product.FE_Verify_Product"/>
+        </classes>
     </test>
 
-    <!--    <test name="Run on Firefox Headless">-->
-    <!--        <parameter name="browser" value="hfirefox"/>-->
-    <!--        <classes>-->
-    <!--            <class name=""/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
+<!--    <test name="Run on Chrome">-->
+<!--        <parameter name="browser" value="chrome"/>-->
+<!--        <classes>-->
+<!--            <class name="frontend.user.FE_User_Login"/>-->
+<!--            <class name="frontend.product.FE_Verify_Product"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-    <!--    <test name="Run on Chrome Headless">-->
-    <!--        <parameter name="browser" value="hchrome"/>-->
-    <!--        <classes>-->
-    <!--            <class name=""/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
+<!--    <test name="Run on Edge">-->
+<!--        <parameter name="browser" value="edge"/>-->
+<!--        <classes>-->
+<!--            <class name="frontend.user.FE_User_Login"/>-->
+<!--            <class name="frontend.product.FE_Verify_Product"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-    <!--    <test name="Run on Edge Headless">-->
-    <!--        <parameter name="browser" value="hedge"/>-->
-    <!--        <classes>-->
-    <!--            <class name=""/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
+<!--        <test name="Run on Firefox Headless">-->
+<!--            <parameter name="browser" value="hfirefox"/>-->
+<!--            <classes>-->
+<!--                <class name="frontend.user.FE_User_Login"/>-->
+<!--                <class name="frontend.product.FE_Verify_Product"/>-->
+<!--            </classes>-->
+<!--        </test>-->
+
+<!--        <test name="Run on Chrome Headless">-->
+<!--            <parameter name="browser" value="hchrome"/>-->
+<!--            <classes>-->
+<!--                <class name="frontend.user.FE_User_Login"/>-->
+<!--                <class name="frontend.product.FE_Verify_Product"/>-->
+<!--            </classes>-->
+<!--        </test>-->
+
+<!--        <test name="Run on Edge Headless">-->
+<!--            <parameter name="browser" value="hedge"/>-->
+<!--            <classes>-->
+<!--                <class name="frontend.user.FE_User_Login"/>-->
+<!--                <class name="frontend.product.FE_Verify_Product"/>-->
+<!--            </classes>-->
+<!--        </test>-->
 </suite>

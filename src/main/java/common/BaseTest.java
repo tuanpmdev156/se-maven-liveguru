@@ -36,54 +36,51 @@ public class BaseTest extends DataFakerHelper {
         return driver;
     }
 
-    protected WebDriver getBrowserDriver(String browserName) {
-        BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
-        switch (browser) {
-            case FIREFOX:
-                driver = new FirefoxDriver();
-                break;
-            case CHROME:
-                driver = new ChromeDriver();
-                break;
-            case EDGE:
-                driver = new EdgeDriver();
-                break;
-            case SAFARI:
-                driver = new SafariDriver();
-                break;
-            default:
-                throw new RuntimeException("Browser name is not valid");
-        }
-        return driver;
-    }
-
     protected WebDriver getBrowserDriver(String browserName, String url) {
+        FirefoxOptions firefoxOptions;
+        ChromeOptions chromeOptions;
+        EdgeOptions edgeOptions;
         BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
         switch (browser) {
             case FIREFOX:
-                driver = new FirefoxDriver();
+                firefoxOptions = new FirefoxOptions();
+                firefoxOptions.setAcceptInsecureCerts(true);
+                driver = new FirefoxDriver(firefoxOptions);
+                //driver = new FirefoxDriver();
                 break;
             case HFIREFOX:
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("--headless");
                 firefoxOptions.addArguments("window-size=1920x1080");
                 driver = new FirefoxDriver(firefoxOptions);
                 break;
             case CHROME:
-                driver = new ChromeDriver();
+                chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--ignore-certificate-errors");
+                chromeOptions.addArguments("--disable-web-security");
+                chromeOptions.addArguments("--allow-running-insecure-content");
+                chromeOptions.setAcceptInsecureCerts(true);
+                driver = new ChromeDriver(chromeOptions);
+                //driver = new ChromeDriver();
                 break;
             case HCHROME:
-                ChromeOptions chromeOptions = new ChromeOptions();
-                //chromeOptions.addArguments("--headless");
+                chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--headless");
                 chromeOptions.addArguments("window-size=1920x1080");
                 driver = new ChromeDriver(chromeOptions);
                 break;
             case EDGE:
-                driver = new EdgeDriver();
+                edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--ignore-certificate-errors");
+                edgeOptions.addArguments("--disable-web-security");
+                edgeOptions.addArguments("--allow-running-insecure-content");
+                edgeOptions.setAcceptInsecureCerts(true);
+                driver = new EdgeDriver(edgeOptions);
+                //driver = new EdgeDriver();
                 break;
             case HEDGE:
-                EdgeOptions edgeOptions = new EdgeOptions();
-                //edgeOptions.addArguments("--headless");
+                edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--headless");
                 edgeOptions.addArguments("window-size=1920x1080");
                 driver = new EdgeDriver(edgeOptions);
                 break;

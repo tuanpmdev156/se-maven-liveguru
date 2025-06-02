@@ -1,6 +1,7 @@
 package utilities;
 
 import common.BaseTest;
+import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -10,6 +11,7 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -45,10 +47,20 @@ public class ReportNGImageListener extends BaseTest implements ITestListener {
         Object testClass = result.getInstance();
         WebDriver webDriver = ((BaseTest) testClass).getDriver();
 
+        // Capture screenshot and log for ReportNG
         String screenshotPath = captureScreenshot(webDriver, result.getName());
         Reporter.getCurrentTestResult();
         Reporter.log("<br><a target=\"_blank\" href=\"file:///" + screenshotPath + "\">" + "<img src=\"file:///" + screenshotPath + "\" " + "height='100' width='150'/> " + "</a></br>");
         Reporter.setCurrentTestResult(null);
+
+        // Add attachment to Allure
+        try {
+            byte[] screenshotBytes = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
+            Allure.addAttachment("Screenshot on Failure", new ByteArrayInputStream(screenshotBytes));
+        } catch (Exception e) {
+            System.err.println("Failed to attach screenshot to Allure: " + e.getMessage());
+        }
+
     }
 
     @Override
